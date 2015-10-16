@@ -1,0 +1,82 @@
+/*
+ * ITT786: Test 2 
+ * Author: Rafi Faizal Bin Zainal Abidin
+ * Matrix No: 2014854008
+ * Email Address: roughfee89@gmail.com
+ * Github Account: https://github.com/rafi2014854008 
+ */
+package test.pkg2;
+
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+public class Initial {
+
+   
+     public static void main(String[] args) throws SocketException {
+        // TODO code application logic here
+      Scanner in = new Scanner(System.in);
+
+      System.out.println("Enter Company Name (A or B. Case Sensitive) and"
+        + " Enter when you have finished");
+
+    while (true) {
+    String input = in.next();
+    if (input.equals("done")) {
+        break;
+    }
+    if (input.equals("A")) {
+        System.out.println("Company A info");
+        NIC();
+        break;
+        
+    } else if (input.equals("B")) {
+        System.out.println("Company B info");
+        NIC();
+        break;
+        
+    } else {
+        System.out.println("Invalid Input. Try again.");
+        break;
+      }
+         
+    } 
+         
+     
+    }
+
+    private static void NIC() throws SocketException {
+        
+        InetAddress ip;
+        
+	try {
+			
+		ip = InetAddress.getLocalHost();
+		
+		NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+			
+		byte[] mac = network.getHardwareAddress();
+			
+		System.out.print("Current MAC address : ");
+			
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < mac.length; i++) {
+			sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));		
+		}
+		System.out.println(sb.toString());
+			
+	} catch (UnknownHostException ex) {
+		
+		System.out.println("I'm sorry. I don't know my own MAC address.");
+		
+	} 
+			
+	//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}
+
+
+    
