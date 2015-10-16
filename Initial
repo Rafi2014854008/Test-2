@@ -7,16 +7,20 @@
  */
 package test.pkg2;
 
+import static java.lang.System.out;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Scanner;
 
-public class Initial {
 
-   
-     public static void main(String[] args) throws SocketException {
+public class AddIPv6 {
+
+    public static void main(String[] args) throws SocketException {
         // TODO code application logic here
       Scanner in = new Scanner(System.in);
 
@@ -31,6 +35,8 @@ public class Initial {
     if (input.equals("A")) {
         System.out.println("Company A info");
         NIC();
+        IPv4();
+        IPv6();
         break;
         
     } else if (input.equals("B")) {
@@ -47,6 +53,8 @@ public class Initial {
          
      
     }
+
+      
 
     private static void NIC() throws SocketException {
         
@@ -76,7 +84,29 @@ public class Initial {
 			
 	//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    private static void IPv4() {
+        try {
+      InetAddress me = InetAddress.getLocalHost();
+      String dottedQuad = me.getHostAddress();
+      System.out.println("My address is " + dottedQuad);
+    } catch (UnknownHostException ex) {
+      System.out.println("I'm sorry. I don't know my own address.");
+    }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static void IPv6() {
+        Enumeration<NetworkInterface> nets = null;
+		try {
+			nets = NetworkInterface.getNetworkInterfaces();
+                        System.out.println("My Address is " + nets);
+		} catch (SocketException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+              
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
-
-
-    
