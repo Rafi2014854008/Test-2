@@ -35,7 +35,6 @@ public class AddIPv6 {
     if (input.equals("A")) {
         System.out.println("Company A info");
         NIC();
-        IPv4();
         IPv6();
         break;
         
@@ -85,28 +84,52 @@ public class AddIPv6 {
 	//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private static void IPv4() {
-        try {
-      InetAddress me = InetAddress.getLocalHost();
-      String dottedQuad = me.getHostAddress();
-      System.out.println("My address is " + dottedQuad);
-    } catch (UnknownHostException ex) {
-      System.out.println("I'm sorry. I don't know my own address.");
-    }
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private static void IPv6() {
+     private static void IPv6() throws SocketException {
         Enumeration<NetworkInterface> nets = null;
 		try {
 			nets = NetworkInterface.getNetworkInterfaces();
-                        System.out.println("My Address is " + nets);
 		} catch (SocketException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-              
+        for (NetworkInterface netint : Collections.list(nets))
+            displayInterfaceInformation(netint);
+       
         
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    private static void displayInterfaceInformation(NetworkInterface netint) {
+        
+        out.printf("\n");
+        System.out.println("Initial Program to Access of IPv6 of Subinterface");
+    	out.printf(Thread.currentThread().getId()+ " Display name: %s\n", netint.getDisplayName());
+        out.printf(Thread.currentThread().getId()+ " Name: %s\n", netint.getName());
+        Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
+        
+        for (InetAddress inetAddress : Collections.list(inetAddresses)) {
+            out.printf(Thread.currentThread().getId()+ " InetAddress: %s\n", inetAddress);
+        }
+       
+
+        try {
+			out.printf(Thread.currentThread().getId()+ " Hardware address: %s\n",
+			            Arrays.toString(netint.getHardwareAddress()));
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        out.printf("\n");
+        System.out.println("End Info for Subinterface");
+	
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
+
+   
+
+
+    
+    
